@@ -33,11 +33,19 @@
     [Inject]
     public NavigationManager navManager { get; set; }
 
+    [Parameter]
+    public int Count { get; set; }
+
     public List<HRTask> Tasks { get; set; } = new List<HRTask>();
 
     protected override async Task OnInitializedAsync()
     {
         Tasks = (await taskService.GetAllTasks()).ToList();
+
+        if (Count != 0)
+        {
+            Tasks = Tasks.Take(Count).ToList();
+        }
     }
 
     public void AddTask()
