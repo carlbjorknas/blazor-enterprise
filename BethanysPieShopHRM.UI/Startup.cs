@@ -1,4 +1,4 @@
-using System.Net.Http;
+﻿using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +32,14 @@ namespace BethanysPieShopHRM.UI
             });
 
             //services.AddScoped<IEmployeeDataService, MockEmployeeDataService>();
+
+            // Enligt kursen skulle IEmployeeDataService varit DI:ad som transient från början
+            // och skulle blivit ändrad till scoped nu för att få Temporary Save att fungera.
+            // AddTransient = Ny instans varje gång
+            // AddScroped = En instans per SignalR-session
+            // AddSingleton = En enda instans
             services.AddScoped<IEmployeeDataService, EmployeeDataService>();
+
             services.AddScoped<ICountryDataService, CountryDataService>();
             services.AddScoped<IJobCategoryDataService, JobCategoryDataService>();
             services.AddScoped<IExpenseDataService, ExpenseDataService>();

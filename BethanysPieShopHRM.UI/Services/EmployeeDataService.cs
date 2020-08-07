@@ -17,6 +17,8 @@ namespace BethanysPieShopHRM.UI.Services
             _httpClient = httpClient;
         }
 
+        public Employee SavedEmployee { get; set; }
+
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
             return await JsonSerializer.DeserializeAsync<IEnumerable<Employee>>

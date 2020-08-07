@@ -52,8 +52,17 @@ namespace BethanysPieShopHRM.UI.Pages
 
             if (employeeId == 0) //new employee is being created
             {
-                //add some defaults
-                Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now, JoinedDate = DateTime.Now };
+                // I kursen lades denna överst i den yttre if-satsen, 
+                // men det blir ju knas om man går in och redigerar en befintlig anställd
+                if (EmployeeDataService.SavedEmployee != null)
+                {
+                    Employee = EmployeeDataService.SavedEmployee;
+                }
+                else
+                {
+                    //add some defaults
+                    Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now, JoinedDate = DateTime.Now };
+                }
             }
             else
             {
@@ -108,6 +117,12 @@ namespace BethanysPieShopHRM.UI.Pages
             Message = "Deleted successfully";
 
             Saved = true;
+        }
+
+        protected void TempSave()
+        {
+            EmployeeDataService.SavedEmployee = Employee;
+            NavigationManager.NavigateTo("/employeeoverview");
         }
 
         protected void NavigateToOverview()
