@@ -1,4 +1,9 @@
-﻿@page "/employeeedit"
+﻿@* The page isn't reloaded when going from editing an employee to adding an employee.
+    The problem seems to be addressed here:
+    https://stackoverflow.com/questions/59568084/navlink-updating-url-but-does-not-reloading-page-in-blazor
+*@
+
+@page "/employeeedit"
 @page "/employeeedit/{EmployeeId}"
 @using BethanysPieShopHRM.Shared
 @inherits EmployeeEditBase
@@ -14,7 +19,7 @@
             <ValidationSummary />
             <div class="form-group row">
                 <label for="lastName" class="col-sm-3">Last name: </label>
-                <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@Employee.LastName"  placeholder="Enter last name" @ref="LastNameInputText"></InputText>
+                <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@Employee.LastName" placeholder="Enter last name" @ref="LastNameInputText"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Employee.LastName)" />
             </div>
             <div class="form-group row">
